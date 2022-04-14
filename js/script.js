@@ -1,19 +1,20 @@
+//Global variables definition
 let name;
 
-// Get the input field
-const input = document.querySelector(".write-message");
-
-// Execute a function when the user releases a key on the keyboard
-input.addEventListener("keyup", function(event) {
+//Send the message through the Enter key
+const inputMessage = document.querySelector(".write-message");
+inputMessage.addEventListener("keyup", function(event) {
   // Number 13 is the "Enter" key on the keyboard
   if (event.keyCode === 13) {
     // Cancel the default action, if needed
     event.preventDefault();
     // Trigger the button element with a click
     document.querySelector(".footer button").click();
+    inputMessage.value = '';
   }
 });
 
+//Functions definition
 function addUser() {
   name = document.querySelector(".write-name").value;
   let promise = axios.post(
@@ -65,19 +66,19 @@ function showMessages(messageObject) {
 
     if (message.type === "status") {
       chat.innerHTML += `<li class="status">
-            <h2><span>${message.time}</span> <strong> ${message.from} </strong> ${message.text}</h2>
+            <h2><span>${message.time}</span>&nbsp; <strong>${message.from}</strong>&nbsp; ${message.text}</h2>
             </li>`;
     }
 
     if (message.type === "message") {
       chat.innerHTML += `<li>
-            <h2><span>${message.time}</span> <strong> ${message.from} </strong> ${message.text}</h2>
+            <h2><span>${message.time}</span>&nbsp; <strong>${message.from}</strong> para <strong>Todos</strong>: &nbsp;${message.text}</h2>
             </li>`;
     }
 
     if (message.type === "private_message") {
       chat.innerHTML += `<li class="private">
-            <h2><span>${message.time}</span> <strong> ${message.from} </strong> to <strong> ${message.to} </strong> ${message.text}</h2>
+            <h2><span>${message.time}</span>&nbsp; <strong>${message.from}</strong> to <strong>${message.to}</strong>: &nbsp;${message.text}</h2>
             </li>`;
     }
   }
@@ -93,42 +94,42 @@ function updateMessages(messageObject) {
     let message = messageObject.data[i];
 
     if (message.type === "status") {
-      chat.innerHTML += `<li class="status">
-            <h2><span>${message.time}</span> <strong>${message.from}</strong> ${message.text}</h2>
-            </li>`;
-    }
-
-    if (message.type === "message") {
-      chat.innerHTML += `<li>
-            <h2><span>${message.time}</span> <strong>${message.from}</strong> ${message.text}</h2>
-            </li>`;
-    }
-
-    if (message.type === "private_message") {
-      chat.innerHTML += `<li class="private">
-            <h2><span>${message.time}</span> <strong>${message.from}</strong> to <strong>${message.to}</strong> ${message.text}</h2>
-            </li>`;
-    }
+        chat.innerHTML += `<li class="status">
+              <h2><span>${message.time}</span>&nbsp; <strong>${message.from}</strong>&nbsp; ${message.text}</h2>
+              </li>`;
+      }
+  
+      if (message.type === "message") {
+        chat.innerHTML += `<li>
+              <h2><span>${message.time}</span>&nbsp; <strong>${message.from}</strong> para <strong>Todos</strong>: &nbsp;${message.text}</h2>
+              </li>`;
+      }
+  
+      if (message.type === "private_message") {
+        chat.innerHTML += `<li class="private">
+              <h2><span>${message.time}</span>&nbsp; <strong>${message.from}</strong> to <strong>${message.to}</strong>: &nbsp;${message.text}</h2>
+              </li>`;
+      }
   }
 
   scrollLastMessage();
 }
 
 function sendMessage() {
-  let text = document.querySelector(".write-message").value;
-
   let promise = axios.post(
     "https://mock-api.driven.com.br/api/v6/uol/messages",
     {
       from: `${name}`,
       to: "Todos",
-      text: `${text}`,
+      text: `${inputMessage.value}`,
       type: "message",
     }
   );
 
   promise.then(getMessages);
   promise.catch(errorReload);
+
+  inputMessage.value = '';
 }
 
 function getMessages() {
@@ -145,6 +146,7 @@ function scrollLastMessage() {
 
 function errorReload() {
   alert("Erro! Recarregue a página!");
+  window.location.reload();
 }
 
 function updatePage() {
