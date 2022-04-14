@@ -1,5 +1,19 @@
 let name;
 
+// Get the input field
+const input = document.querySelector(".write-message");
+
+// Execute a function when the user releases a key on the keyboard
+input.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.querySelector(".footer button").click();
+  }
+});
+
 function addUser() {
   name = document.querySelector(".write-name").value;
   let promise = axios.post(
@@ -144,4 +158,14 @@ function userPresent() {
         {
             name: `${name}`
           });
+}
+
+function showUsers() {
+    console.log("Cliquei!");
+    const backgroundChat = document.querySelector(".content");
+    const usersBoard = document.querySelector(".users-board");
+
+    backgroundChat.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
+    usersBoard.classList.remove("hide");
+
 }

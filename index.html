@@ -46,29 +46,10 @@
     <div class="content hide">
       <div class="header">
         <img src="./images/logo 1.png" />
-        <ion-icon name="people"></ion-icon>
+        <ion-icon name="people" onclick="showUsers()"></ion-icon>
       </div>
 
       <ul class="chat">
-        <!--<li>
-                <h2><span>(09:21:45)</span> <strong>João</strong> entra na sala...</h2>
-            </li>
-
-            <li>
-                <h2><span>(09:22:28)</span> <strong>João</strong> para <strong>Todos</strong>: Bom dia</h2>
-            </li>
-
-            <li>
-                <h2><span>(09:22:38)</span> <strong>Maria</strong> para <strong>João</strong>: Oi João :)</h2>
-            </li>
-
-            <li>
-                <h2><span>(09:22:48)</span> <strong>João</strong> reservadamente para <strong>Maria</strong>: Oi gatinha quer tc?</h2>
-            </li>
-
-            <li>
-                <h2><span>(09:22:48)</span> <strong>Maria</strong> sai da sala...</h2>
-            </li> -->
       </ul>
 
       <div class="footer">
@@ -78,12 +59,27 @@
           placeholder="Escreva aqui..."
         />
         <div>
-          <ion-icon
+          <button onclick="sendMessage()"><ion-icon
             name="paper-plane-outline"
-            onclick="sendMessage()"
-          ></ion-icon>
+            ></ion-icon></button>
         </div>
       </div>
+    </div>
+
+    <div class="users-board hide">
+        <h3>Escolha um contato para enviar mensagem:</h3>
+
+        <ul class="users">
+            <li><ion-icon name="people"></ion-icon><h4>Todos</h4></li>
+            <li><ion-icon name="person-circle"></ion-icon><h4>João</h4></li>
+            <li><ion-icon name="person-circle"></ion-icon><h4>Maria</h4></li>
+        </ul>
+
+        <h3>Escolha a visibilidade:</h3>
+        <ul class="message-visibility">
+            <li><ion-icon name="lock-open"></ion-icon><h4>Público</h4></li>
+            <li><ion-icon name="lock-closed"></ion-icon><h4>Reservadamente</h4></li>
+        </ul>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
