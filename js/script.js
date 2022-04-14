@@ -13,7 +13,6 @@ function addUser() {
 
 function enterChatError(error) {
   let statusCode = error.response.status;
-  console.log(error.response);
 
   if (statusCode === 400) {
     alert(
@@ -36,9 +35,7 @@ function enterChat() {
   loadingText.classList.remove("hide");
 
   promise.then(showMessages);
-  promise.catch(function () {
-    alert("Erro! Por favor, entre na sala de novo.");
-  });
+  promise.catch(errorReload);
 }
 
 function showMessages(messageObject) {
@@ -54,24 +51,25 @@ function showMessages(messageObject) {
 
     if (message.type === "status") {
       chat.innerHTML += `<li class="status">
-            <h2><span>${message.time}</span> <strong>${message.from}</strong> ${message.text}</h2>
+            <h2><span>${message.time}</span> <strong> ${message.from} </strong> ${message.text}</h2>
             </li>`;
     }
 
     if (message.type === "message") {
       chat.innerHTML += `<li>
-            <h2><span>${message.time}</span> <strong>${message.from}</strong> ${message.text}</h2>
+            <h2><span>${message.time}</span> <strong> ${message.from} </strong> ${message.text}</h2>
             </li>`;
     }
 
     if (message.type === "private_message") {
       chat.innerHTML += `<li class="private">
-            <h2><span>${message.time}</span> <strong>${message.from}</strong> to <strong>${message.to}</strong> ${message.text}</h2>
+            <h2><span>${message.time}</span> <strong> ${message.from} </strong> to <strong> ${message.to} </strong> ${message.text}</h2>
             </li>`;
     }
   }
 
   scrollLastMessage();
+  updatePage();
 }
 
 function updateMessages(messageObject) {
@@ -133,4 +131,17 @@ function scrollLastMessage() {
 
 function errorReload() {
   alert("Erro! Recarregue a página!");
+}
+
+function updatePage() {
+    setInterval(getMessages, 3000);
+    setInterval(userPresent, 5000);
+}
+
+function userPresent() {
+    let promise = axios.post(
+        "https://mock-api.driven.com.br/api/v6/uol/status", 
+        {
+            name: `${name}`
+          });
 }
