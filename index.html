@@ -64,24 +64,21 @@
             ></ion-icon></button>
         </div>
       </div>
-    </div>
 
-    <div class="users-board hide">
+      <div class="users-board hide">
         <h3>Escolha um contato para enviar mensagem:</h3>
 
-        <ul class="users">
-            <li><ion-icon name="people"></ion-icon><h4>Todos</h4></li>
-            <li><ion-icon name="person-circle"></ion-icon><h4>João</h4></li>
-            <li><ion-icon name="person-circle"></ion-icon><h4>Maria</h4></li>
+        <ul class="users-list">
+            <li><ion-icon name="people"></ion-icon><h4>Todos</h4><ion-icon name="checkmark-outline"></ion-icon></li>
         </ul>
 
         <h3>Escolha a visibilidade:</h3>
         <ul class="message-visibility">
-            <li><ion-icon name="lock-open"></ion-icon><h4>Público</h4></li>
-            <li><ion-icon name="lock-closed"></ion-icon><h4>Reservadamente</h4></li>
+            <li><ion-icon name="lock-open"></ion-icon><h4>Público</h4><ion-icon class = "hide" name="checkmark-outline"></ion-icon></li>
+            <li><ion-icon name="lock-closed"></ion-icon><h4>Reservadamente</h4><ion-icon name="checkmark-outline"></ion-icon></li>
         </ul>
+    </div> 
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./js/script.js"></script>
   </body>

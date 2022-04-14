@@ -1,4 +1,5 @@
-body {
+body,
+.content {
   background-color: #ffffff;
   font-family: "Roboto";
 }
@@ -201,6 +202,7 @@ button.enter {
   width: 100%;
   margin-top: 106px;
   margin-bottom: 80px;
+  z-index: 0;
 }
 
 .chat li {
@@ -255,6 +257,10 @@ strong {
   background-color: #dcdcdc;
 }
 
+.message {
+  background-color: #FFFFFF;
+}
+
 .private {
   background-color: #ffdede;
 }
@@ -282,6 +288,7 @@ strong {
 .footer button {
   border: none;
   margin-right: 27px;
+  background-color: #FFFFFF;
 }
 
 .write-message {
@@ -314,7 +321,7 @@ strong {
   height: 100%;
   background-color: #FFFFFF;
 
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
 
@@ -326,7 +333,7 @@ strong {
   margin-left: 20px;
 }
 
-.users li,
+.users-list li,
 .message-visibility li {
   display: flex;
   align-items: center;

@@ -1,5 +1,8 @@
 //Global variables definition
 let name;
+const usersBoard = document.querySelector(".users-board");
+const chat = document.querySelector(".chat");
+const ONE_SECOND = 1000;
 
 //Send the message through the Enter key
 const inputMessage = document.querySelector(".write-message");
@@ -71,7 +74,7 @@ function showMessages(messageObject) {
     }
 
     if (message.type === "message") {
-      chat.innerHTML += `<li>
+      chat.innerHTML += `<li class="message">
             <h2><span>${message.time}</span>&nbsp; <strong>${message.from}</strong> para <strong>Todos</strong>: &nbsp;${message.text}</h2>
             </li>`;
     }
@@ -88,8 +91,6 @@ function showMessages(messageObject) {
 }
 
 function updateMessages(messageObject) {
-  const chat = document.querySelector(".chat");
-
   for (let i = 0; i < messageObject.data.length; i++) {
     let message = messageObject.data[i];
 
@@ -100,7 +101,7 @@ function updateMessages(messageObject) {
       }
   
       if (message.type === "message") {
-        chat.innerHTML += `<li>
+        chat.innerHTML += `<li class="message">
               <h2><span>${message.time}</span>&nbsp; <strong>${message.from}</strong> para <strong>Todos</strong>: &nbsp;${message.text}</h2>
               </li>`;
       }
@@ -150,8 +151,9 @@ function errorReload() {
 }
 
 function updatePage() {
-    setInterval(getMessages, 3000);
-    setInterval(userPresent, 5000);
+    setInterval(getMessages, (3 * ONE_SECOND));
+    setInterval(userPresent, (5 * ONE_SECOND));
+    setInterval(getUsers, (10 * ONE_SECOND));
 }
 
 function userPresent() {
@@ -163,11 +165,33 @@ function userPresent() {
 }
 
 function showUsers() {
-    console.log("Cliquei!");
-    const backgroundChat = document.querySelector(".content");
-    const usersBoard = document.querySelector(".users-board");
+    const header = document.querySelector(".header");
+    const footer = document.querySelector(".footer");
 
-    backgroundChat.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
     usersBoard.classList.remove("hide");
 
+    header.style.filter = "brightness(60%)";
+    chat.style.filter = "brightness(60%)";
+    footer.style.filter = "brightness(60%)";
+    
+    let promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promise.then(userList);
+    promise.catch(errorReload);
 }
+
+function userList(userObject) {
+    const list = document.querySelector(".users-list");
+    let userSize = userObject.data.length;
+
+    for (let i = 0; i < userSize; i++) {
+        let user = userObject.data[i];
+        list.innerHTML += `<li><ion-icon name="person-circle"></ion-icon><h4>${user.name}</h4><ion-icon class="hide" name="checkmark-outline"></ion-icon></li>`;
+    }
+}
+
+function getUsers() {
+    let promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promise.then(userList);
+    promise.catch(errorReload);
+}
+
