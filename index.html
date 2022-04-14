@@ -19,10 +19,10 @@
 </head>
 <body>
 
-    <div class="entry-page hide">
+    <div class="entry-page">
         <img src="./images/logo 2.png">
         <input type="text" class="write-name" placeholder="Digite o seu nome"> 
-        <button class="enter">Entrar</button>
+        <button class="enter" onclick="addUser()">Entrar</button>
         
         <div class="lds-default hide">
             <div></div>
@@ -41,7 +41,7 @@
         <h1 class="hide">Entrando...</h1>
     </div>
 
-    <div class="content">
+    <div class="content hide">
 
         <div class="header">
             <img src="./images/logo 1.png">
@@ -49,7 +49,7 @@
         </div>
 
         <ul class="chat">
-            <li>
+            <!--<li>
                 <h2><span>(09:21:45)</span> <strong>João</strong> entra na sala...</h2>
             </li>
 
@@ -67,14 +67,16 @@
 
             <li>
                 <h2><span>(09:22:48)</span> <strong>Maria</strong> sai da sala...</h2>
-            </li>
+            </li> -->
         </ul>
 
         <div class="footer">
             <input type="text" class="write-message" placeholder="Escreva aqui..."> 
-            <ion-icon name="paper-plane-outline"></ion-icon>
+            <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
         </div>
     </div>
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./js/script.js"></script>    
 </body>
 </html>
